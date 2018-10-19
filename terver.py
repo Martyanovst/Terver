@@ -5,9 +5,10 @@ from fractions import Fraction as f
 
 def print_drv_with_integer_keys(drv):
     print('{')
-    for k,v in drv.items():
+    for k, v in drv.items():
         print(str(int(k)) + ': ' + str(v) + ',')
     print('}')
+
 
 def operate_drv(first, second, keygen):
     result = {}
@@ -20,6 +21,7 @@ def operate_drv(first, second, keygen):
                 result[key] = value
     return result
 
+
 def multiply(first, second):
     return operate_drv(first, second, operator.mul)
 
@@ -27,8 +29,10 @@ def multiply(first, second):
 def lcm_of_drv(first, second):
     return operate_drv(first, second, lcm)
 
+
 def math_expect(drv):
     return sum([k * v for k, v in drv.items()])
+
 
 def dispersion(drv):
     expectation = math_expect(drv)
@@ -39,11 +43,13 @@ def dispersion(drv):
 def drv_pow(drv, d):
     return {k**d: v for k, v in drv.items()}
 
+
 def gcd(a, b):
     #Compute the greatest common divisor of a and b
     while b > 0:
         a, b = b, a % b
     return a
+
 
 def lcm(a, b):
     #Compute the lowest common multiple of a and b
@@ -53,7 +59,8 @@ def lcm(a, b):
 #Входные данные, две ДСВ - кси и эта.
 #Найдем закон распределения ДСВ тэта.
 кси = {1: f(1, 6), 2: f(1, 6), 3: f(1, 6), 4: f(1, 6), 5: f(1, 6), 6: f(1, 6)}
-эта = {1: f(1, 12), 2: f(1, 12), 3: f(1, 3), 4: f(1, 3), 5: f(1, 12), 6: f(1, 12)}
+эта = {1: f(1, 12), 2: f(1, 12), 3: f(1, 3),
+       4: f(1, 3), 5: f(1, 12), 6: f(1, 12)}
 кси_плюс_2 = {k+2: v for k, v in кси.items()}
 эта_умножить_на_кси = multiply(кси, эта)
 закон_распределения_ДСВ_Тэта = lcm_of_drv(кси_плюс_2, эта_умножить_на_кси)
@@ -78,7 +85,3 @@ print("Математическое ожидание случайной вели
 #Пункт B) Найти дисперсию
 дисперсия = dispersion(закон_распределения_ДСВ_Тэта)
 print("Дисперсия случайной величины Тэта = " + str(дисперсия))
-
-print_drv_with_integer_keys(эта)
-print_drv_with_integer_keys(кси)
-print(sum(закон_распределения_ДСВ_Тэта.values()))

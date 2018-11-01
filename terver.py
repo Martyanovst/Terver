@@ -5,7 +5,7 @@ from fractions import Fraction as f
 
 def print_drv_with_integer_keys(drv):
     print('{')
-    for k, v in drv.items():
+    for k, v in sorted(drv.items()):
         print(str(int(k)) + ': ' + str(v) + ',')
     print('}')
 
@@ -69,10 +69,15 @@ print("Закон распределения случайной величины
 print_drv_with_integer_keys(закон_распределения_ДСВ_Тэта)
 
 #Пункт А) Нарисовать график
-items = закон_распределения_ДСВ_Тэта.items()
+items = sorted(закон_распределения_ДСВ_Тэта.items())
 keys = [k for k, v in items]
 values = [v for k, v in items]
-plt.plot(keys, values, 'ro')
+points = []
+current_probability = 0
+for val in values:
+    current_probability += val
+    points.append(current_probability)
+plt.plot(keys, points)
 plt.title('Закон распределения случайной величины Тэта')
 plt.ylabel('Вероятность')
 plt.xlabel('Значение случайной величины')

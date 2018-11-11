@@ -75,12 +75,11 @@ def square_deviation(drv):
     return math.sqrt(dispersion(drv))
 
 
-# def covariation(first, second):
-   # return f(math_expect(multiply(first, second)) - math_expect(first) * math_expect(second))
-# def covariation(first, second):
-#     return f(math_expect(multiply(add_to_drv(first, -math_expect(first)), add_to_drv(second, -math_expect(second)))))
 def covariation(first, second, f1, f2):
-    return math_expect(operate_drv(first, second, lambda x, y: f1(x, y) * f2(x, y))) - math_expect(operate_drv(first, second, f1)) * math_expect(operate_drv(first, second, f2))
+    multiplicated = operate_drv(first, second, lambda x, y: f1(x, y) * f2(x, y))
+    x = operate_drv(first, second, f1)
+    y = operate_drv(first, second, f2)
+    return math_expect(multiplicated) - math_expect(x) * math_expect(y)
 
 
 def correlation(first, second, f1, f2):
